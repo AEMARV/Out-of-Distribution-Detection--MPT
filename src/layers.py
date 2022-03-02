@@ -45,11 +45,7 @@ class Sampler(Module):
         energy = energy.transpose(0,dim)
         sample = sample.transpose(0,dim)
         return sample, energy
-    def sigmoid_sample(self,energy):
-        prob = energy.sigmoid().detach()
-        samples = prob> torch.rand_like(prob)
-        energy = energy * (samples-0.5)
-        samples = torch.cat([samples])
+
     def forward(self,x,numstates=2):
         init_shape = x.shape
         x = x.reshape([x.shape[0],numstates,-1,x.shape[2],x.shape[3]])
